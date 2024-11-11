@@ -24,3 +24,4 @@ func LoadEnvFile() {
 
 const BaseURL = "https://api.brawlstars.com/v1"
 const Port = "8080"
+const Tag = "%23V0CJ2J"
