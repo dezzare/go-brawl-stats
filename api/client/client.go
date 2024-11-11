@@ -1,10 +1,12 @@
-package main
+package client
 
 import (
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/dezzare/go-brawl-stats/configs"
 )
 
 type Client struct {
@@ -13,18 +15,16 @@ type Client struct {
 	APIKey  string
 }
 
-var C *Client
-
-func newClient(token string, baseURL string) *Client {
+func New() *Client {
 	return &Client{
 		HTTP:    &http.Client{},
-		BaseURL: baseURL,
-		APIKey:  token,
+		BaseURL: configs.BaseURL,
+		APIKey:  configs.APIKey,
 	}
 }
 
-func (c *Client) GetPlayer(userTag string) error {
-	err := c.doRequest("GET", c.BaseURL+"/players/"+userTag)
+func (c *Client) GetPlayer(playerTag string) error {
+	err := c.doRequest("GET", c.BaseURL+"/players/"+playerTag)
 	if err != nil {
 		return fmt.Errorf("Error getting player: %v", err)
 	}

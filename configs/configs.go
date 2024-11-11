@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"log"
@@ -14,9 +14,9 @@ func LoadEnvFile() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	var isBool bool
-	APIKey, isBool = os.LookupEnv("APIKEY")
-	if isBool == false {
+	var exist bool
+	APIKey, exist = os.LookupEnv("APIKEY")
+	if !exist {
 		log.Printf("API Key não encontrada")
 	}
 
@@ -24,4 +24,5 @@ func LoadEnvFile() {
 
 const BaseURL = "https://api.brawlstars.com/v1"
 const Port = "8080"
-const Tag = "%23V0CJ2J"
+
+// const Tag = "%23V0CJ2J"
