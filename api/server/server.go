@@ -25,7 +25,7 @@ func New() *http.Server {
 
 func teste(w http.ResponseWriter, r *http.Request) {
 	c := client.New()
-	tag := configs.Tag
+	tag := "%23V0CJ2J"
 	err := c.GetPlayer(tag)
 	if err != nil {
 		fmt.Printf("Error hadler: %v", err)
