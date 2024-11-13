@@ -1,19 +1,22 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/dezzare/go-brawl-stats/api/client"
 	"github.com/dezzare/go-brawl-stats/configs"
+	"github.com/dezzare/go-brawl-stats/models"
 )
 
 func New() *http.Server {
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", teste)
 	mux.HandleFunc("GET /v1/players/{playerTag}", getPlayer)
-	//mux.HandleFunc("/teste", teste)
+	mux.HandleFunc("GET /v1/ranking/{countryTag}", getPlayersRankingsByCountry)
+	mux.HandleFunc("GET /teste", teste)
 
 	srv := &http.Server{
 		Addr:    ":" + configs.Port,
@@ -25,10 +28,38 @@ func New() *http.Server {
 
 func teste(w http.ResponseWriter, r *http.Request) {
 	c := client.New()
-	tag := "%23V0CJ2J"
-	err := c.GetPlayer(tag)
+	playerTag := "%23V0CJ2J"
+
+	fmt.Println("\nGet player")
+	err := c.GetPlayer(playerTag)
 	if err != nil {
-		fmt.Printf("Error hadler: %v", err)
+		fmt.Printf("\nError: %v", err)
 	}
 
+	fmt.Println("\nGetting Players Rank")
+	err = c.GetPlayersRankingsByCountry("br")
+	if err != nil {
+		fmt.Printf("\nError: %v", err)
+	}
+
+	fmt.Println("Open file")
+	var file models.PlayerRankingList
+	err = getJsonFromFile("test-PlayerRankingList.json", &file)
+	if err != nil {
+		fmt.Printf("\nError: %v", err)
+	}
+
+	fmt.Printf("\nFile:\n %v", file)
+
+}
+
+func getJsonFromFile[T interface{}](filename string, model *T) error {
+	file, err := os.ReadFile(filename)
+	if err != nil {
+		return fmt.Errorf("Open file error: %v", err)
+	}
+	if err := json.Unmarshal(file, model); err != nil {
+		return fmt.Errorf("Json Unmarshal error: %v", err)
+	}
+	return nil
 }

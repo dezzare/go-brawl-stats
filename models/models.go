@@ -69,6 +69,19 @@ type PlayerIcon struct {
 	Id int `json:"id"`
 }
 
+type PlayerRankingList struct {
+	PlayerRanking []PlayerRanking `json:"items"`
+}
+type PlayerRanking struct {
+	Club      PlayerClub `json:"club"`
+	Icon      PlayerIcon `json:"icon"`
+	Trophies  int        `json:"trophies"`
+	Tag       string     `json:"tag"`
+	Name      string     `json:"name"`
+	Rank      int        `json:"rank"`
+	NameColor string     `json:"nameColor"`
+}
+
 type StarPower struct {
 	Name string `json:"name"`
 	Id   int    `json:"id"`
