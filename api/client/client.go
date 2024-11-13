@@ -36,10 +36,6 @@ func (c *Client) GetPlayer(playerTag string) error {
 	if err != nil {
 		return fmt.Errorf("Erro Save to file: %v", err)
 	}
-	// var jsonData models.Player
-	// if err := json.Unmarshal(data, &jsonData); err != nil {
-	// 	return fmt.Errorf("Json Unmarshal error: %v", err)
-	// }
 
 	return nil
 }
