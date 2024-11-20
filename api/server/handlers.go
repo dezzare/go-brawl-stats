@@ -19,30 +19,42 @@ func getPlayer(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("\nError: %v", err)
 	}
 	var model models.Player
-	saveToJsonFile(player, model, "test-Player.json")
+	saveToJsonFile(player, model, "data-Player.json")
 
+}
+
+func getBrawlers(w http.ResponseWriter, r *http.Request) {
+	c := apiclient.New()
+
+	fmt.Println("\nGetting List of Brawlers")
+	brawlers, err := c.GetBrawlers()
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+	var model models.BrawlerList
+	saveToJsonFile(brawlers, model, "data-Brawlers-List.json")
 }
 
 func getAllPlayers(tagList []string) {
 	c := apiclient.New()
-	var players models.PlayerList
+	var list models.PlayerList
 	for k, v := range tagList {
 		fmt.Printf("\n%v - Get player with id: %v", k, v)
 		p, _ := c.GetPlayer(v)
-		var model models.Player
-		if err := json.Unmarshal(p, &model); err != nil {
+		var aux models.Player
+		if err := json.Unmarshal(p, &aux); err != nil {
 			fmt.Printf("Json Unmarshal error: %v", err)
 		}
-		fmt.Printf("\nPlayer appended: \n%v", model)
+		fmt.Printf("\nPlayer appended: \n%v", aux)
 		fmt.Println("--------")
-		players.Player = append(players.Player, model)
+		list.Player = append(list.Player, aux)
 	}
 	var model models.PlayerList
-	data, err := json.Marshal(players)
+	data, err := json.Marshal(list)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	}
-	saveToJsonFile(data, model, "test-Player-List.json")
+	saveToJsonFile(data, model, "data-Players-List.json")
 }
 
 func getAllPlayersBattleLog(tagList []string) {
@@ -51,21 +63,21 @@ func getAllPlayersBattleLog(tagList []string) {
 	for k, v := range tagList {
 		fmt.Printf("\n%v - Get player with id: %v", k, v)
 		b, _ := c.GetPlayerBattleLog(v)
-		var model models.BattleList
-		if err := json.Unmarshal(b, &model); err != nil {
+		var aux models.BattleList
+		if err := json.Unmarshal(b, &aux); err != nil {
 			fmt.Printf("Json Unmarshal error: %v", err)
 		}
-		fmt.Printf("\nBattle appended: \n%v", model)
+		fmt.Printf("\nBattle appended: \n%v", aux)
 		fmt.Println("--------")
-		battles.Add(model)
-
+		battles.List = battles.Add(aux)
+		// battles.Add(aux)
 	}
 	var model models.AllBattles
 	data, err := json.Marshal(battles)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 	}
-	saveToJsonFile(data, model, "test-AllPlayers-BattleLog.json")
+	saveToJsonFile(data, model, "data-AllPlayers-BattleLog.json")
 }
 
 func getPlayersRankingsByCountry(w http.ResponseWriter, r *http.Request) {
@@ -82,7 +94,7 @@ func getPlayersRankingsByCountry(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var model models.PlayerRankingList
-	saveToJsonFile(players, model, "test-Top-Rank-Players.json")
+	saveToJsonFile(players, model, "data-Top-Rank-Players.json")
 }
 
 func getPlayerBattleLog(w http.ResponseWriter, r *http.Request) {
@@ -90,11 +102,11 @@ func getPlayerBattleLog(w http.ResponseWriter, r *http.Request) {
 	c := apiclient.New()
 
 	fmt.Printf("\nGetting Player battlelog: %v", playerTag)
-	player, err := c.GetPlayer(playerTag)
+	player, err := c.GetPlayerBattleLog(playerTag)
 	if err != nil {
 		fmt.Printf("\nError: %v", err)
 	}
 	var model models.BattleList
-	saveToJsonFile(player, model, "test-Player-BattleLog.json")
+	saveToJsonFile(player, model, "data-Player-BattleLog.json")
 
 }

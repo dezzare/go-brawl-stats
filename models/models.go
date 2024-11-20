@@ -1,15 +1,5 @@
 package models
 
-type Accessory struct {
-	Name string `json:"name"`
-	Id   int    `json:"id"`
-}
-
-type AccessoryList struct {
-	List []Accessory `json:"name"`
-	Id   int         `json:"id"`
-}
-
 type AllBattles struct {
 	List []BattleList `json:"list"`
 }
@@ -58,41 +48,10 @@ type BattleResult struct {
 	Teams        []BattleLogPlayer   `json:"teams"`
 }
 
-type Brawler struct {
-	Gadgets    []Accessory `json:"gadgets"`
-	Name       string      `json:"name"`
-	Id         int         `json:"id"`
-	StarPowers []StarPower `json:"starPowers"`
-}
-
-type BrawlerStat struct {
-	Name            string      `json:"name"`
-	Gadgets         []Accessory `json:"gadgets"`
-	StarPowers      []StarPower `json:"starPowers"`
-	Id              int         `json:"id"`
-	Rank            int         `json:"rank"`
-	Trophies        int         `json:"trophies"`
-	HighestTrophies int         `json:"highestTrophies"`
-	Power           int         `json:"power"`
-	Gears           []GearStat  `json:"gears"`
-}
-
 type Event struct {
 	Id   int    `json:"id"`
 	Mode string `json:"mode"`
 	Map  string `json:"map"`
-}
-
-type GearInfo struct {
-	Name  string `json:"name"`
-	Id    int    `json:"id"`
-	Level int    `json:"level"`
-}
-
-type GearStat struct {
-	Name  string `json:"name"`
-	Id    int    `json:"id"`
-	Level int    `json:"level"`
 }
 
 type Player struct {
@@ -140,7 +99,39 @@ type PlayerRanking struct {
 	NameColor string     `json:"nameColor"`
 }
 
-type StarPower struct {
-	Name string `json:"name"`
-	Id   int    `json:"id"`
-}
+// type Statistics struct {
+// 	TotalMatches int
+// 	Mode         map[string]int
+// 	Type         map[string]int
+// 	Brawler      map[string]StatisticsBrawler struct {
+// 						MatchesPlayed int
+// 						TotalWins     int
+// 						MachesAgainst map[string]Result{
+// 												Win  int
+// 												Draw int
+// 												Lost int
+// 						}
+// }
+// }
+//
+// type AllBattles struct {
+// List []BattleList
+// 		Battle []Battle
+// 			BattleTime   string
+// 			Event        Event
+// 			BattleResult BattleResult
+// 				Mode         string
+// 				Type         string
+// 				Result       string
+// 				Duration     int
+// 				TrophyChange int
+// 				StarPlayer   BattleLogStarPlayer
+// 				Teams        []BattleLogPlayer
+// 					Tag     string
+// 					Name    string
+// 					Brawler BattleLogBrawler
+// 						Id       int
+// 						Name     string
+// 						Power    int
+// 						Trophies int
+//}

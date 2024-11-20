@@ -30,6 +30,14 @@ func (c *Client) GetPlayer(playerTag string) (data []byte, err error) {
 	return
 }
 
+func (c *Client) GetBrawlers() (data []byte, err error) {
+	data, err = c.doRequest("GET", c.BaseURL+"/brawlers")
+	if err != nil {
+		return data, fmt.Errorf("Error getting brawlers: %v", err)
+	}
+	return
+}
+
 func (c *Client) GetPlayerBattleLog(playerTag string) (data []byte, err error) {
 	data, err = c.doRequest("GET", c.BaseURL+"/players/"+playerTag+"/battlelog")
 	if err != nil {

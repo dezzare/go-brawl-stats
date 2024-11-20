@@ -25,4 +25,4 @@ go.work.sum
 .env
 
 #Json Test files
-test*.json
+data*.json
