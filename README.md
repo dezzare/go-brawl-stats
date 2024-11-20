@@ -18,7 +18,8 @@ with no job experience in the area.
 Listening/reading all the tips for "How to get experience" or
 "How to learn code", I created this project.
 
-Therefore, the main purpose of this project for study is (but not limited to)::
+Therefore, the main purpose of this project for study is (but not limited to):
+
     * API client
     * API server
     * CLI application
