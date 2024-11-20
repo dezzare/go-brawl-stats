@@ -1,21 +1,14 @@
 package main
 
 import (
-	"log"
-
-	"github.com/dezzare/go-brawl-stats/api/server"
-	"github.com/dezzare/go-brawl-stats/configs"
+	"github.com/dezzare/go-brawl-stats/cmd"
 )
-
-func init() {
-	log.Println("Loading .env File")
-	configs.LoadEnvFile()
-}
 
 func main() {
 
-	srv := server.New()
+	cmd.Execute()
+	// srv := server.New()
 
-	log.Printf("Server is running on port: %v\n", configs.Port)
-	log.Fatal(srv.ListenAndServe())
+	// log.Printf("Server is running on port: %v\n", configs.Port)
+	// log.Fatal(srv.ListenAndServe())
 }
