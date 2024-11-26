@@ -19,5 +19,5 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(configs.LoadEnvFile)
+	cobra.OnInitialize(configs.Load)
 }

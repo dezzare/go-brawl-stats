@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/dezzare/go-brawl-stats/configs"
+	"github.com/spf13/viper"
 )
 
 type Client struct {
@@ -15,10 +15,11 @@ type Client struct {
 }
 
 func New() *Client {
+
 	return &Client{
 		HTTP:    &http.Client{},
-		BaseURL: configs.BaseURL,
-		APIKey:  configs.APIKey,
+		BaseURL: viper.GetString("BaseURL"),
+		APIKey:  viper.GetString("APIKey"),
 	}
 }
 

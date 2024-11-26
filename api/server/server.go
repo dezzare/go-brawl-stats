@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dezzare/go-brawl-stats/configs"
+	"github.com/spf13/viper"
 )
 
 func New() *http.Server {
+
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /v1/players/{playerTag}", getPlayer)
@@ -17,7 +18,7 @@ func New() *http.Server {
 	mux.HandleFunc("GET /teste", teste)
 
 	srv := &http.Server{
-		Addr:    ":" + configs.Port,
+		Addr:    ":" + viper.GetString("Port"),
 		Handler: mux,
 	}
 
